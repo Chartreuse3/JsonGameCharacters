@@ -122,7 +122,38 @@ do
       }
       
     }
-    
+    else if (choice == "7"){
+      foreach(var c in sf2Characters)
+      {
+        Console.WriteLine(c.Display());
+      }
+    }
+    else if (choice == "8"){
+      StreetFighter sf2Character = new();
+      {
+        Id = sf2Characters.Count == 0 ? 1 : sf2Characters.Max(c => c.Id) + 1
+        InputCharacter(sf2Character);
+        sf2Characters.Add(sf2Character);
+        File.WriteAllText(dkFileName, JsonSerializer.Serialize(sf2Characters));
+        logger.Info($"Character added: {sf2Character.Name}");
+      }
+    }
+    else if (choice == "9"){
+      Console.WriteLine("Enter the Id of the character to remove:");
+    if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+    {
+            StreetFighter? character = sf2Characters.FirstOrDefault(c => c.Id == Id);
+      if (character == null)
+      {
+        logger.Error($"Character Id {Id} not found");
+      } else {
+        sf2Characters.Remove(character);
+        // serialize list<marioCharacter> into json file
+        File.WriteAllText(sf2FileName, JsonSerializer.Serialize(sf2Characters));
+        logger.Info($"Character Id {Id} removed");
+      }
+      
+    }
     } else {
       logger.Error("Invalid Id");
     }
