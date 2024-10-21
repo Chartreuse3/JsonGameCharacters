@@ -16,6 +16,16 @@ if (File.Exists(marioFileName))
   logger.Info($"File deserialized {marioFileName}");
 }
 
+// deserializing doinkey kong characters
+
+string dkFileName = "dk.json";
+List<DonkeyKongCharacter> dkCharacters = [];
+if (File.Exists(dkFileName))
+{
+  dkCharacters = JsonSerializer.Deserialize<List<DonkeyKongCharacter>>(File.ReadAllText(dkFileName))!;
+  logger.Info($"File deserialized {dkFileName}");
+}
+
 
 do
 {
