@@ -41,6 +41,12 @@ do
   Console.WriteLine("1) Display Mario Characters");
   Console.WriteLine("2) Add Mario Character");
   Console.WriteLine("3) Remove Mario Character");
+  Console.WriteLine("4) Display Donkey Kong Characters");
+  Console.WriteLine("5) Add Donkey Kong Character");
+  Console.WriteLine("6) Remove Donkey Kong Character");
+  Console.WriteLine("7) Display Street Fighter Characters");
+  Console.WriteLine("8) Add Street Fighter Character");
+  Console.WriteLine("9) Remove Street Fighter Character");
   Console.WriteLine("Enter to quit");
   // input selection
   string? choice = Console.ReadLine();
@@ -83,9 +89,44 @@ do
         File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
         logger.Info($"Character Id {Id} removed");
       }
+    }
+    else if (choice == "4"){
+      foreach(var c in dkCharacters)
+      {
+        Console.WriteLine(c.Display());
+      }
+    }
+    else if (choice == "5"){
+      DonkeyKongCharacter donkeyKongCharacter = new();
+      {
+        Id = dkCharacters.Count == 0 ? 1 : dkCharacters.Max(c => c.Id) + 1
+        InputCharacter(donkeyKongCharacter);
+        dkCharacters.Add(donkeyKongCharacter);
+        File.WriteAllText(dkFileName, JsonSerializer.Serialize(dkCharacters));
+        logger.Info($"Character added: {donkeyKongCharacter.Name}");
+      }
+    }
+    else if (choice == "6"){
+      Console.WriteLine("Enter the Id of the character to remove:");
+    if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+    {
+            DonkeyKongCharacter? character = dkCharacters.FirstOrDefault(c => c.Id == Id);
+      if (character == null)
+      {
+        logger.Error($"Character Id {Id} not found");
+      } else {
+        dkCharacters.Remove(character);
+        // serialize list<marioCharacter> into json file
+        File.WriteAllText(dkFileName, JsonSerializer.Serialize(dkCharacters));
+        logger.Info($"Character Id {Id} removed");
+      }
+      
+    }
+    
     } else {
       logger.Error("Invalid Id");
     }
+  
   } else if (string.IsNullOrEmpty(choice)) {
     break;
   } else {
