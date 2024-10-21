@@ -26,6 +26,14 @@ if (File.Exists(dkFileName))
   logger.Info($"File deserialized {dkFileName}");
 }
 
+string sf2FileName = "sf2.json";
+List<StreetFighter> sf2Characters = [];
+if (File.Exists(sf2FileName))
+{
+  sf2Characters = JsonSerializer.Deserialize<List<StreetFighter>>(File.ReadAllText(sf2FileName))!;
+  logger.Info($"File deserialized {sf2FileName}");
+}
+
 
 do
 {
