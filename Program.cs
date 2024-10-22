@@ -90,6 +90,7 @@ do
         logger.Info($"Character Id {MarioId} removed");
       }
     }
+  }
     else if (choice == "4"){
       foreach(var c in dkCharacters)
       {
@@ -106,7 +107,6 @@ do
         File.WriteAllText(dkFileName, JsonSerializer.Serialize(dkCharacters));
         logger.Info($"Character added: {donkeyKongCharacter.Name}");
       }
-    }
     else if (choice == "6"){
       Console.WriteLine("Enter the Id of the character to remove:");
     if (UInt32.TryParse(Console.ReadLine(), out UInt32 DkId))
